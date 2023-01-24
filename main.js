@@ -27,9 +27,13 @@ function loadImage() {
     gameOverImage.src = "images/gameover.png";
 }
 
+let keysDown = {}
 function setupKeyboardListener() {
     document.addEventListener("keydown",function(event){
+        keysDown[event.key] = true;
         console.log("what key?", event.key);
+        console.log("added key into keysDown?", keysDown);
+
     })
 }
 
@@ -39,12 +43,9 @@ function render() {
 }
 
 function main() {
-    cnt+=1;
-    console.log(cnt);
     render();
     requestAnimationFrame(main);
 }
-cnt=0
 loadImage();
 setupKeyboardListener();
 main();
