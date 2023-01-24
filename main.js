@@ -31,24 +31,17 @@ let keysDown = {}
 function setupKeyboardListener() {
     document.addEventListener("keydown",function(event){
         keysDown[event.key] = true;
-        console.log("what key?", event.key);
-        console.log("added key into keysDown?", keysDown);
     });
     document.addEventListener("keyup",function(event){
         delete keysDown[event.key];
-        console.log("after click button",keysDown);
     })
 }
 function update() {
     if ("ArrowRight" in keysDown) {
         spaceshipX += 5;
-        console.log("ArrowRight");
-
     } 
-    if (ArrowLeft in keysDown) {
+    if ("ArrowLeft" in keysDown) {
         spaceshipX -= 5;
-        console.log("ArrowLeft");
-
     }
 }
 
@@ -63,7 +56,7 @@ function main() {
     requestAnimationFrame(main);
 }
 
-console.log("777");
+console.log("8");
 loadImage();
 setupKeyboardListener();
 main();
