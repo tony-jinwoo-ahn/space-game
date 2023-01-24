@@ -42,7 +42,8 @@ function setupKeyboardListener() {
 function update() {
     if (ArrowRight in keysDown) {
         spaceshipX += 5;
-    } else if (ArrowLeft in keysDown) {
+    } 
+    if (ArrowLeft in keysDown) {
         spaceshipY -= 5;
     }
 }
@@ -53,11 +54,12 @@ function render() {
 }
 
 function main() {
+    update();
     render();
     requestAnimationFrame(main);
 }
 
-console.log("2");
+console.log("3");
 loadImage();
 setupKeyboardListener();
 main();
