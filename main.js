@@ -7,8 +7,10 @@ canvas.height = 700;
 document.body.appendChild(canvas);
 
 let backgroundImage, spaceshipImage, bulletImage, enemyImage, gameOverImage;
-let spaceshipX = canvas.width / 2 - 24;
-let spaceshipY = canvas.height - 48;
+let spaceshipWidth = 48;
+let spaceshipHeight = 48;
+let spaceshipX = (canvas.width / 2) - (spaceshipWidth/2);
+let spaceshipY = canvas.height - spaceshipHeight;
 
 function loadImage() {
     backgroundImage = new Image();
@@ -19,7 +21,7 @@ function loadImage() {
 
     bulletImage = new Image();
     bulletImage.src = "images/bullet.png";
-    
+
     enemyImage = new Image();
     enemyImage.src = "images/enemy.png";
 
@@ -38,10 +40,14 @@ function setupKeyboardListener() {
 }
 function update() {
     if ("ArrowRight" in keysDown) {
-        spaceshipX += 5;
+        if (spaceshipX < canvas.width-spaceshipWidth) {
+            spaceshipX += 5;
+        }
     } 
     if ("ArrowLeft" in keysDown) {
-        spaceshipX -= 5;
+        if (spaceshipX > 0) {
+            spaceshipX -= 5;
+        }
     }
 }
 
@@ -56,7 +62,7 @@ function main() {
     requestAnimationFrame(main);
 }
 
-console.log("9");
+console.log("12");
 loadImage();
 setupKeyboardListener();
 main();
