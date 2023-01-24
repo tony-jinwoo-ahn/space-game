@@ -42,9 +42,13 @@ function setupKeyboardListener() {
 function update() {
     if ("ArrowRight" in keysDown) {
         spaceshipX += 5;
+        console.log("ArrowRight");
+
     } 
     if (ArrowLeft in keysDown) {
         spaceshipX -= 5;
+        console.log("ArrowLeft");
+
     }
 }
 
@@ -59,7 +63,7 @@ function main() {
     requestAnimationFrame(main);
 }
 
-console.log("7");
+console.log("777");
 loadImage();
 setupKeyboardListener();
 main();
