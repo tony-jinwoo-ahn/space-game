@@ -56,7 +56,7 @@ function main() {
     requestAnimationFrame(main);
 }
 
-console.log("8");
+console.log("9");
 loadImage();
 setupKeyboardListener();
 main();
