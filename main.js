@@ -30,12 +30,12 @@ function loadImage() {
 let keysDown = {}
 function setupKeyboardListener() {
     document.addEventListener("keydown",function(event){
-        keysDown[event.keycode] = true;
-        console.log("what key?", event.keycode);
+        keysDown[event.key] = true;
+        console.log("what key?", event.key);
         console.log("added key into keysDown?", keysDown);
     });
     document.addEventListener("keyup",function(event){
-        delete keysDown[event.keycode];
+        delete keysDown[event.key];
         console.log("after click button",keysDown);
     })
 }
@@ -59,7 +59,7 @@ function main() {
     requestAnimationFrame(main);
 }
 
-console.log("5");
+console.log("6");
 loadImage();
 setupKeyboardListener();
 main();
