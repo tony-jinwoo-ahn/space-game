@@ -39,6 +39,13 @@ function setupKeyboardListener() {
         console.log("after click button",keysDown);
     })
 }
+function update() {
+    if (ArrowRight in keysDown) {
+        spaceshipX += 5;
+    } else if (ArrowLeft in keysDown) {
+        spaceshipY -= 5;
+    }
+}
 
 function render() {
     ctx.drawImage(backgroundImage, 0, 0, canvas.width, canvas.height);
