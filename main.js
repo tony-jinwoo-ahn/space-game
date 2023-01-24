@@ -33,7 +33,10 @@ function setupKeyboardListener() {
         keysDown[event.key] = true;
         console.log("what key?", event.key);
         console.log("added key into keysDown?", keysDown);
-
+    });
+    document.addEventListener("keyup",function(event){
+        delete keysDown[event.key];
+        console.log("after click button",keysDown);
     })
 }
 
@@ -46,6 +49,8 @@ function main() {
     render();
     requestAnimationFrame(main);
 }
+
+console.log("1");
 loadImage();
 setupKeyboardListener();
 main();
