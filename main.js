@@ -40,10 +40,10 @@ function setupKeyboardListener() {
     })
 }
 function update() {
-    if (39 in keysDown) {
+    if ("ArrowRight" in keysDown) {
         spaceshipX += 5;
     } 
-    if (37 in keysDown) {
+    if (ArrowLeft in keysDown) {
         spaceshipX -= 5;
     }
 }
@@ -59,7 +59,7 @@ function main() {
     requestAnimationFrame(main);
 }
 
-console.log("6");
+console.log("7");
 loadImage();
 setupKeyboardListener();
 main();
