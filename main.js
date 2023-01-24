@@ -39,10 +39,12 @@ function render() {
 }
 
 function main() {
+    cnt+=1;
+    console.log(cnt);
     render();
     requestAnimationFrame(main);
 }
-
+cnt=0
 loadImage();
 setupKeyboardListener();
 main();
