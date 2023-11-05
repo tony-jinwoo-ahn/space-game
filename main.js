@@ -68,6 +68,15 @@ function Bullet() {
     }
 }
 
+function killAll() {
+    for (let i = 0; i < enemyList.length; i++) {
+        if (!enemyList[i].alive) continue;
+        score += 100;
+        enemyList[i].alive = false;
+        createCollision(enemyList[i].x, enemyList[i].y);
+    }
+}
+
 let collisionList = []
 function Collision() {
     this.x = 0;
@@ -133,6 +142,9 @@ function setupKeyboardListener() {
         delete keysDown[event.key];
         if (event.code == "Space") {
             createBullet();
+        }
+        if (event.code == "Digit0") {
+            killAll();
         }
     })
 }
