@@ -1,3 +1,4 @@
+let gameSpeed = 10;
 let canvas;
 let ctx;
 canvas = document.createElement("canvas");
@@ -32,8 +33,12 @@ function Bullet() {
     }
     this.update = function() {
         this.y -= 10;
+        if (this.y <= 0) {
+            this.alive = false;
+        }
     }
     this.checkHit = function() {
+        if (!this.alive) return;
         for (let i = 0; i < enemyList.length; i++) {
             if (!enemyList[i].alive) continue;
             if (this.y <= enemyList[i].y && enemyList[i].x <= this.x && this.x <= (enemyList[i].x + enemyWidth)) {
@@ -68,10 +73,16 @@ function Enemy() {
         enemyList.push(this);
     }
     this.update = function() {
-        this.y += 5;
-        if (this.y >= canvas.height - enemyHeight) {
-            gameOver = true;
-            console.log("game over");
+        if (this.alive) {
+            this.y += gameSpeed;
+            if (this.y > spaceshipY - enemyHeight && spaceshipX < this.x + enemyWidth && this.x < spaceshipX + spaceshipWidth) {
+                createCollision((this.x + spaceshipX) / 2, (this.y + spaceshipY) / 2);
+                gameOver = true;
+            }
+        }
+        if (this.y >= canvas.height) {
+            this.alive = false;
+            score--;
         }
     }
 }
@@ -118,7 +129,7 @@ function createEnemy() {
     const interval = setInterval(function() {
         let e = new Enemy();
         e.init();
-    }, 1000);
+    }, 100*gameSpeed);
 }
 
 function createCollision(x, y) {
@@ -128,7 +139,7 @@ function createCollision(x, y) {
 
 function update() {
     if ("ArrowRight" in keysDown) {
-        if (spaceshipX < canvas.width-spaceshipWidth) {
+        if (spaceshipX < canvas.width - spaceshipWidth) {
             spaceshipX += 5;
         }
     }
@@ -176,7 +187,7 @@ function render() {
 }
 
 function showGameOver() {
-    ctx.drawImage(gameOverImage, 0, canvas.height/2-gameOverImageHeight/2, gameOverImageWidth, gameOverImageHeight);
+    ctx.drawImage(gameOverImage, 0, canvas.height/2 - gameOverImageHeight/2, gameOverImageWidth, gameOverImageHeight);
 }
 
 function main() {
