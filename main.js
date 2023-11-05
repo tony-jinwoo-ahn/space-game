@@ -1,12 +1,6 @@
-let gameSpeed = 0;
+let gameSpeed = 5;
 
-let numberInput = document.getElementById("numberInput");
-let submitButton = document.getElementById("submitButton");
 let refreshButton = document.getElementById("refreshButton");
-submitButton.addEventListener("click", function() {
-    gameSpeed = parseInt(numberInput.value);
-    startGame();
-});
 refreshButton.addEventListener("click", function() {
     location.reload();
 });
@@ -32,11 +26,6 @@ let spaceshipWidth = 48;
 let spaceshipHeight = 48;
 let spaceshipX = (canvas.width / 2) - (spaceshipWidth/2);
 let spaceshipY = canvas.height - spaceshipHeight;
-
-function submitNumber() {
-    gameSpeed = document.getElementById("numberInput").valueAsNumber;
-    console.log("game speed: ", gameSpeed);
-}
 
 let bulletList = []
 function Bullet() {
@@ -100,7 +89,7 @@ function Enemy() {
     }
     this.update = function() {
         if (this.alive) {
-            this.y += (gameSpeed+10);
+            this.y += 10;
             if (this.y > spaceshipY - enemyHeight && spaceshipX < this.x + enemyWidth && this.x < spaceshipX + spaceshipWidth) {
                 createCollision((this.x + spaceshipX) / 2, (this.y + spaceshipY) / 2);
                 gameOver = true;
@@ -141,9 +130,11 @@ function setupKeyboardListener() {
     document.addEventListener("keyup",function(event){
         delete keysDown[event.key];
         if (event.code == "Space") {
+            event.preventDefault();
             createBullet();
         }
         if (event.code == "Digit0") {
+            event.preventDefault();
             killAll();
         }
     })
@@ -156,7 +147,7 @@ function createBullet() {
 
 function createEnemy() {
     if (1 <= gameSpeed && gameSpeed <= 10) {
-        const interval = setInterval(function () {
+        setInterval(function () {
             let e = new Enemy();
             e.init();
         }, gameSpeed * 100);
@@ -237,3 +228,5 @@ function startGame() {
     createEnemy();
     main();
 }
+
+startGame();
