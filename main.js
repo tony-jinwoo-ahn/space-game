@@ -1,4 +1,4 @@
-let gameSpeed = 5;
+let gameSpeed = 3;
 
 let refreshButton = document.getElementById("refreshButton");
 refreshButton.addEventListener("click", function() {
