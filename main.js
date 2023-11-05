@@ -2,8 +2,8 @@ let canvas;
 let ctx;
 canvas = document.createElement("canvas");
 ctx = canvas.getContext("2d");
-canvas.width = 612;
-canvas.height = 612;
+canvas.width = 350;
+canvas.height = 600;
 document.body.appendChild(canvas);
 
 let backgroundImage, spaceshipImage, bulletImage, enemyImage, gameOverImage;
@@ -12,8 +12,8 @@ let score = 0;
 
 let enemyWidth = 48;
 let enemyHeight = 48;
-let gameOverImageWidth = 612;
-let gameOverImageHeight = 612;
+let gameOverImageWidth = 356;
+let gameOverImageHeight = 200;
 
 let spaceshipWidth = 48;
 let spaceshipHeight = 48;
@@ -75,7 +75,7 @@ function loadImage() {
     enemyImage.src = "images/enemy.png";
 
     gameOverImage = new Image();
-    gameOverImage.src = "images/gameover.png";
+    gameOverImage.src = "images/gameover.jpeg";
 }
 
 let keysDown = {}
@@ -106,12 +106,12 @@ function createEnemy() {
 function update() {
     if ("ArrowRight" in keysDown) {
         if (spaceshipX < canvas.width-spaceshipWidth) {
-            spaceshipX += 7;
+            spaceshipX += 5;
         }
-    } 
+    }
     if ("ArrowLeft" in keysDown) {
         if (spaceshipX > 0) {
-            spaceshipX -= 7;
+            spaceshipX -= 5;
         }
     }
     for (let i=0 ; i<bulletList.length ; i++) {
@@ -130,7 +130,7 @@ function render() {
     ctx.drawImage(spaceshipImage, spaceshipX, spaceshipY);
     ctx.fillText(`Score: ${score}`, 20, 30);
     ctx.fillStyle = "white";
-    ctx.font = "20px Arial";
+    ctx.font = "30px Arial";
     for (let i=0 ; i<bulletList.length ; i++) {
         if (bulletList[i].alive) {
             ctx.drawImage(bulletImage, bulletList[i].x, bulletList[i].y);
@@ -142,7 +142,7 @@ function render() {
 }
 
 function showGameOver() {
-    ctx.drawImage(gameOverImage, 0, 0, gameOverImageWidth, gameOverImageHeight);
+    ctx.drawImage(gameOverImage, 0, canvas.height/2-gameOverImageHeight/2, gameOverImageWidth, gameOverImageHeight);
 }
 
 function main() {
