@@ -8,6 +8,7 @@ document.body.appendChild(canvas);
 
 let backgroundImage, spaceshipImage, bulletImage, enemyImage, gameOverImage;
 let gameOver = false;
+let score = 0;
 
 let enemyWidth = 48;
 let enemyHeight = 48;
@@ -23,6 +24,7 @@ let bulletList = []
 function Bullet() {
     this.x = 0;
     this.y = 0;
+    this.alive = true;
     this.init = function() {
         this.x = spaceshipX + 12;
         this.y = spaceshipY;
@@ -30,6 +32,15 @@ function Bullet() {
     }
     this.update = function() {
         this.y -= 10;
+    }
+    this.checkHit = function() {
+        for (let i = 0; i < enemyList.length; i++) {
+            if (this.y <= enemyList[i].y && enemyList[i].x <= this.x && this.x <= (enemyList[i].x + enemyWidth)) {
+                score++;
+                this.alive = false;
+                enemyList.splice(i, 1);
+            }
+        }
     }
 }
 
@@ -95,16 +106,19 @@ function createEnemy() {
 function update() {
     if ("ArrowRight" in keysDown) {
         if (spaceshipX < canvas.width-spaceshipWidth) {
-            spaceshipX += 5;
+            spaceshipX += 7;
         }
     } 
     if ("ArrowLeft" in keysDown) {
         if (spaceshipX > 0) {
-            spaceshipX -= 5;
+            spaceshipX -= 7;
         }
     }
     for (let i=0 ; i<bulletList.length ; i++) {
-        bulletList[i].update();
+        if (bulletList[i].alive) {
+            bulletList[i].update();
+            bulletList[i].checkHit();
+        }
     }
     for (let i=0 ; i<enemyList.length ; i++) {
         enemyList[i].update();
@@ -114,8 +128,13 @@ function update() {
 function render() {
     ctx.drawImage(backgroundImage, 0, 0, canvas.width, canvas.height);
     ctx.drawImage(spaceshipImage, spaceshipX, spaceshipY);
+    ctx.fillText(`Score: ${score}`, 20, 30);
+    ctx.fillStyle = "white";
+    ctx.font = "20px Arial";
     for (let i=0 ; i<bulletList.length ; i++) {
-        ctx.drawImage(bulletImage, bulletList[i].x, bulletList[i].y);
+        if (bulletList[i].alive) {
+            ctx.drawImage(bulletImage, bulletList[i].x, bulletList[i].y);
+        }
     }
     for (let i=0 ; i<enemyList.length ; i++) {
         ctx.drawImage(enemyImage, enemyList[i].x, enemyList[i].y);
